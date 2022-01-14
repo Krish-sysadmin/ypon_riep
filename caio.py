@@ -1,24 +1,27 @@
-import random
+import random, math
 
-let_me_guess = input("Try to guess what number would be randomly generated, the range is 1 and 4: ")
-key = random.randrange(1, 4)
+lower = int(input("Enter the guess range's lower value: "))
+upper = int(input("Enter the guess range's upper value: "))
 
-#check if guess is within randrange (still needs adjustments)
-def ram_range():
-    try:
-        int(1) <= int(let_me_guess) <= int(4)
-        check_guess()
-    except:
-        quit()
+key = random.randint(lower, upper)
+print("\nYou've only got", round(math.log(upper - lower + 1, 2)), " tries to guess the integer! gl! \n")
 
-ram_range()
+round = 0
 
-#out result of user guess
-def check_guess():
-    if  int(let_me_guess) == int(key):
-        print("True")
-    else:
-        print("False")
-        print("The random number generated was", key)
+while round < math.log(upper - lower + 1, 2):
+    round += 1
 
-check_guess()
+    guess = int(input("Guess a number:- "))
+
+    if key == guess:
+        print("Congratulations you did it in ",
+              round, " try")
+        break
+    elif key > guess:
+        print("You guessed a number too tiny!")
+    elif key < guess:
+        print("You guessed higher :( ")
+
+if round >= math.log(upper - lower + 1, 2):
+    print("\nThe number was %d" % key)
+    print("\tHope you enjoyed the game!")
